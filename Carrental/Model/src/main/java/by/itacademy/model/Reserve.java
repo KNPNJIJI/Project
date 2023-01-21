@@ -1,6 +1,7 @@
 package by.itacademy.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "Reserve")
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reserve {

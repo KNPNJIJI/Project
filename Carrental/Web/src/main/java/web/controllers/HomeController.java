@@ -1,9 +1,11 @@
 package web.controllers;
 
 import by.itacademy.dto.CarDto;
+import by.itacademy.model.Reserve;
 import by.itacademy.service.CarPhotoService;
 import by.itacademy.service.CarService;
 import by.itacademy.dto.Model;
+import by.itacademy.service.ReserveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +25,9 @@ public class HomeController {
 
     @Autowired
     private CarPhotoService carPhotoService;
+
+    @Autowired
+    private ReserveService reserveService;
 
     @GetMapping({"/", "/index.html"})
     public ModelAndView homePage() {
@@ -67,5 +73,26 @@ public class HomeController {
             @PathVariable("model") String model) {
 
         return carService.findCarsOfModel(brand, model);
+    }
+
+    @GetMapping("/api/cars/startRent={startRent}/endRent={endRent}/brand={brand}")
+    @ResponseBody
+    public List<CarDto> showCarsBetweenDateOfBrand(
+            @PathVariable("startRent") Date startRent,
+            @PathVariable("endRent") Date endRent,
+            @PathVariable("brand") String brand) {
+        List<CarDto> list = reserveService.selectCarIdBetweenDatesOfBrand(startRent, endRent, brand);
+        return list;
+    }
+
+    @GetMapping("/api/cars/startRent={startRent}/endRent={endRent}/brand={brand}/model={model}")
+    @ResponseBody
+    public List<CarDto> showCarsBetweenDateOfModel(
+                                             @PathVariable("startRent") Date startRent,
+                                             @PathVariable("endRent") Date endRent,
+                                             @PathVariable("brand") String brand,
+                                             @PathVariable("model") String model) {
+        List<CarDto> list = reserveService.selectCarIdBetweenDatesOfModel(startRent, endRent, brand, model);
+        return carService.findCarsOfBrand(brand);
     }
 }

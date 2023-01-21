@@ -63,8 +63,27 @@ public class CarDaoImpl implements CarDao {
     }
 
     @Override
+    public List<Car> findCarsOfBrandBesides(String brand, String filter){
+        String query = "FROM Car AS c WHERE Brand = '" + brand + "' AND " + filter;
+        return sessionFactory.getCurrentSession().createQuery(query).list();
+    }
+
+    @Override
     public List<Car> findCarsOfModel(String brand, String model){
         String query = "FROM Car AS c WHERE Brand = '" + brand + "' AND Model = '" + model + "'";
+        return sessionFactory.getCurrentSession().createQuery(query).list();
+    }
+
+    @Override
+    public List<Car> findCarsOfModelBesides(String brand, String model, String filter){
+        String query = "FROM Car AS c WHERE Brand = '" + brand + "' AND Model = '" + model + "' AND " + filter;
+        return sessionFactory.getCurrentSession().createQuery(query).list();
+    }
+
+    @Override
+    public List<Car> findCarsBesides(String filter){
+        String query = "FROM Car AS c WHERE " + filter;
+        System.out.println("query: " + query);
         return sessionFactory.getCurrentSession().createQuery(query).list();
     }
 

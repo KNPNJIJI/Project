@@ -75,12 +75,33 @@
     });
   });
 
+  window.onload = function() {
+    startRent.addEventListener('input', function(event) {
+      endRent.value = startRent.value;
+      endRent.min = startRent.value;
+        console.log('date change '+ startRent.value);
+      tableCars.ajax.url('/carrental/api/cars/startRent=' + startRent.value
+                       + '/endRent=' + endRent.value + '/brand=all/' );
+      tableCars.ajax.reload();
+    });
+
+    endRent.addEventListener('input', function(event) {
+      endRent.value = startRent.value;
+      endRent.min = startRent.value;
+        console.log('date change '+ startRent.value);
+      tableCars.ajax.url('/carrental/api/cars/startRent=' + startRent.value
+                       + '/endRent=' + endRent.value + '/brand=all/' );
+      tableCars.ajax.reload();
+    });
+  }
+
     document.getElementById("selectModel").style.visibility = "hidden";
 
     function selectBrandFunction(index){ //this.selectedIndex
         if (index != "Select brand"){
             brandAuto = index;
-            tableCars.ajax.url('/carrental/api/cars/brand=' + index + '/' );
+            tableCars.ajax.url('/carrental/api/cars/startRent=' + startRent.value
+                                   + '/endRent=' + endRent.value + '/brand=' + index + '/' );
             tableCars.ajax.reload();
 
             const xhr = new XMLHttpRequest();
@@ -134,13 +155,11 @@
     }
 
     function selectModelFunction(modelAuto){
+      tableCars.ajax.url('/carrental/api/cars/startRent=' + startRent.value
+                       + '/endRent=' + endRent.value + '/brand='
+                       + brandAuto + '/model=' + modelAuto + '/' );
         tableCars.ajax.url('/carrental/api/cars/brand=' + brandAuto + '/model=' + modelAuto + '/' );
-        tableCars.ajax.reload();
-    }
-
-    function selectDateStart(){
-    dateControl.value = '2017-06-01';
-    console.log(dateControl.value);
+      tableCars.ajax.reload();
     }
 
     // инициируем изменение элементов в списке брендов

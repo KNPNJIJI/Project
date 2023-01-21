@@ -30,4 +30,10 @@ public interface CarDao {
     Integer getCountPageCar(int pageSize);
 
     List<Car> getCarsForPage(int pageSize, int page);
+
+    List<Car> findCarsOfBrandBesides(String brand, String filter);
+
+    List<Car> findCarsOfModelBesides(String brand, String model, String filter);
+
+    List<Car> findCarsBesides(String filter);
 }

@@ -86,6 +86,25 @@ public class CarService {
     }
 
     @Transactional
+    public List<CarDto> findCarsOfBrandBesides(String brand, String filter){
+        System.out.println("Controller startRent 111 " + filter);
+        List<Car> cars= carDao.findCarsOfBrandBesides(brand, filter);
+        return MapperUtil.convertList(cars, this::convertToCarDto);
+    }
+
+    @Transactional
+    public List<CarDto> findCarsOfModelBesides(String brand, String model, String filter){
+        List<Car> cars= carDao.findCarsOfModelBesides(brand, model, filter);
+        return MapperUtil.convertList(cars, this::convertToCarDto);
+    }
+
+    @Transactional
+    public List<CarDto> findCarsBesides(String filter){
+        List<Car> cars= carDao.findCarsBesides( filter);
+        return MapperUtil.convertList(cars, this::convertToCarDto);
+    }
+
+    @Transactional
     public List<CarDto> findCarsOfModel(String brand, String model){
         List<Car> cars= carDao.findCarsOfModel(brand, model);
         return MapperUtil.convertList(cars, this::convertToCarDto);
