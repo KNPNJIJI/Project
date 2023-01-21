@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Kirill.Shelopuho@shate-m.com">
+        <sql>
+            CREATE TABLE IF NOT EXISTS `app_user` (
+            `ID` VARCHAR(256) PRIMARY KEY NOT NULL,
+            `USER_NAME` VARCHAR(256) NOT NULL,
+            `USER_PASSWORD` VARCHAR(256),
+            `USER_ROLE` VARCHAR(256)
+            );
+            INSERT INTO `app_user` VALUES (
+            '10000000-0000-0000-0000-000000000001',
+            'admin',
+            '{noop}admin',
+            'ADMIN'
+            );
+            INSERT INTO `app_user` VALUES (
+            '10000000-0000-0000-0000-000000000011',
+            'user',
+            '{noop}user',
+            'USER'
+            );
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
